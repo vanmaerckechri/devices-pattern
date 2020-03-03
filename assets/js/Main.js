@@ -10,7 +10,7 @@ var JSPATTERN = JSPATTERN || {};
 		this.state = 1;
 		this.ui = new JSPATTERN.Ui();
 		this.keyboard = new JSPATTERN.Keyboard();
-		this.pointer = new JSPATTERN.Pointer();
+		this.pointer = new JSPATTERN.Pointer(window);
 		this.menu = new JSPATTERN.Menu();
 		this.game = new JSPATTERN.Game();
 		this.run();

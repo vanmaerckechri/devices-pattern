@@ -4,28 +4,30 @@ var JSPATTERN = JSPATTERN || {};
 {
 	"use strict";
 
-	JSPATTERN.Pointer = function()
+	JSPATTERN.Pointer = function(container)
 	{
 		this.posFirst = {x:0, y:0};
 		this.posCurrent = {x:0, y:0};
 		this.posLast = {x:0, y:0};
 		this.usedKeys = [];
-		this.initEvents();
+		this.isMoving = false;
+		this.initEvents(container);
 	};
 
-	JSPATTERN.Pointer.prototype.initEvents = function()
+	JSPATTERN.Pointer.prototype.initEvents = function(container)
 	{
-		window.addEventListener('mousedown', this.updateFirstPosition.bind(this, 'mouse'));
-		window.addEventListener('touchstart', this.updateFirstPosition.bind(this, 'touchScreen'));
-		window.addEventListener('mousemove', this.updateCurrentPosition.bind(this));
-		window.addEventListener('touchmove', this.updateCurrentPosition.bind(this));
-		window.addEventListener('mouseup', this.updateLastPosition.bind(this));
-		window.addEventListener('touchend', this.updateLastPosition.bind(this));
-		window.addEventListener('touchcancel', this.updateLastPosition.bind(this));
+		container.addEventListener('mousedown', this.updateFirstPosition.bind(this, 'mouse'));
+		container.addEventListener('touchstart', this.updateFirstPosition.bind(this, 'touchScreen'), {passive: false});
+		container.addEventListener('mousemove', this.updateCurrentPosition.bind(this));
+		container.addEventListener('touchmove', this.updateCurrentPosition.bind(this));
+		container.addEventListener('mouseup', this.updateLastPosition.bind(this));
+		container.addEventListener('touchend', this.updateLastPosition.bind(this));
+		container.addEventListener('touchcancel', this.updateLastPosition.bind(this));
 	};
 
 	JSPATTERN.Pointer.prototype.updateFirstPosition = function(device, e)
 	{
+		e.preventDefault();
 		this.updateUsedKeys(e, device, true);
 		if (e.touches)
 		{
@@ -43,14 +45,16 @@ var JSPATTERN = JSPATTERN || {};
 
 	JSPATTERN.Pointer.prototype.updateCurrentPosition = function(e)
 	{
+		this.isMoving = true;
 		e = e.touches ? e.touches[0] : e;
 		this.posCurrent = {x: e.clientX, y: e.clientY};
 	};
 
 	JSPATTERN.Pointer.prototype.updateLastPosition = function(e)
 	{
-		this.posLast = this.posCurrent;
 		this.updateUsedKeys(e.type, false);
+		this.posLast = this.isMoving === true ? this.posCurrent : this.posFirst;
+		this.isMoving = false;
 	};
 
 	JSPATTERN.Pointer.prototype.updateUsedKeys = function(e, device, isActive)
