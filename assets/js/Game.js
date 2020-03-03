@@ -11,16 +11,16 @@ var JSPATTERN = JSPATTERN || {};
 
 	JSPATTERN.Game.prototype = Object.create(JSPATTERN.State.prototype);
 
-	JSPATTERN.Game.prototype.mainLoop = function(ui, keys, mouse, dragDrop)
+	JSPATTERN.Game.prototype.mainLoop = function(ui, keyboard, pointer)
 	{
-		this.listenKeyboard(ui, keys);
-		this.listenMouse(ui, mouse, dragDrop);
+		this.listenKeyboard(ui, keyboard);
+		this.listenPointer(ui, pointer);
 	};
 
-	JSPATTERN.Game.prototype.listenMouse = function(ui, mouse, dragDrop)
+	JSPATTERN.Game.prototype.listenPointer = function(ui, pointer)
 	{
-		ui.displayMouseButtons(mouse.usedKeys);
-		ui.displayMouseAxes(mouse.axes);
-		ui.displayDeviceDragDrop(dragDrop.getPositions(mouse));
+		ui.displayPointerButtons(pointer.usedKeys);
+		ui.displayPointerPositions(pointer.posCurrent);
+		ui.displayDeviceDragDrop(pointer.posFirst, pointer.posLast);
 	};
 }());

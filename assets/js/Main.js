@@ -38,11 +38,11 @@ var JSPATTERN = JSPATTERN || {};
 
 			if (this.state === 0)
 			{
-				this.menu.mainLoop(this.ui, keys, pointer);
+				this.menu.mainLoop(this.ui, keys);
 			}
 			else if (this.state === 1)
 			{
-				this.game.mainLoop(this.ui, keys, pointer, this.dragDrop);
+				this.game.mainLoop(this.ui, keys, pointer);
 			}
 		}
 	};

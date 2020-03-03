@@ -28,7 +28,7 @@ var JSPATTERN = JSPATTERN || {};
 			}
 		},
 
-		displayMouseButtons: function(mouseButtons)
+		displayPointerButtons: function(mouseButtons)
 		{
 			if (mouseButtons.length > 0)
 			{
@@ -40,19 +40,16 @@ var JSPATTERN = JSPATTERN || {};
 			}
 		},
 
-		displayMouseAxes: function(mouseAxes)
+		displayPointerPositions: function(posCurrent)
 		{
-			if (mouseAxes)
-			{
-				this.viewMouseX.textContent = mouseAxes.x;
-				this.viewMouseY.textContent = mouseAxes.y;
-			}
+			this.viewMouseX.textContent = posCurrent.x;
+			this.viewMouseY.textContent = posCurrent.y;
 		},
 
-		displayDeviceDragDrop: function(dragDrop)
+		displayDeviceDragDrop: function(posFirst, posLast)
 		{
-			this.deviceDragPosition.textContent = 'x: ' + dragDrop.drag.x + ', y: ' + dragDrop.drag.y;
-			this.deviceDropPosition.textContent =  'x: ' + dragDrop.drop.x + ', y: ' + dragDrop.drop.y;
+			this.deviceDragPosition.textContent = 'x: ' + posFirst.x + ', y: ' + posFirst.y;
+			this.deviceDropPosition.textContent =  'x: ' + posLast.x + ', y: ' + posLast.y;
 		}
 	}
 }());
