@@ -8,7 +8,7 @@ var JSPATTERN = JSPATTERN || {};
 	{
 		// 0: menu, 1: game
 		this.state = 1;
-		this.ui = new JSPATTERN.Ui();
+		this.gameUi = new JSPATTERN.GameUi();
 		this.keyboard = new JSPATTERN.Keyboard();
 		this.pointer = new JSPATTERN.Pointer(window);
 		this.menu = new JSPATTERN.Menu();
@@ -37,11 +37,11 @@ var JSPATTERN = JSPATTERN || {};
 
 			if (this.state === 0)
 			{
-				this.menu.mainLoop(this.ui, keys);
+				this.menu.mainLoop(this.gameUi, keys);
 			}
 			else if (this.state === 1)
 			{
-				this.game.mainLoop(this.ui, keys, pointer);
+				this.game.mainLoop(this.gameUi, keys, pointer);
 			}
 		}
 	};

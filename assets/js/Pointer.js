@@ -6,23 +6,34 @@ var JSPATTERN = JSPATTERN || {};
 
 	JSPATTERN.Pointer = function(container)
 	{
+		this.keys = {
+			0: 'leftBtn',
+			1: 'middleBtn',
+			2: 'rightBtn'
+		};
+		this.container = container;
 		this.posFirst = {x:0, y:0};
 		this.posCurrent = {x:0, y:0};
 		this.posLast = {x:0, y:0};
 		this.usedKeys = [];
 		this.isMoving = false;
-		this.initEvents(container);
+		this.initEvents();
+
+		JSPATTERN.Device.call(this, this.keys);
 	};
 
-	JSPATTERN.Pointer.prototype.initEvents = function(container)
+	JSPATTERN.Pointer.prototype = Object.create(JSPATTERN.Device.prototype);
+	JSPATTERN.Pointer.prototype.constructor = JSPATTERN.Pointer;
+
+	JSPATTERN.Pointer.prototype.initEvents = function()
 	{
-		container.addEventListener('mousedown', this.updateFirstPosition.bind(this, 'mouse'));
-		container.addEventListener('touchstart', this.updateFirstPosition.bind(this, 'touchScreen'), {passive: false});
-		container.addEventListener('mousemove', this.updateCurrentPosition.bind(this));
-		container.addEventListener('touchmove', this.updateCurrentPosition.bind(this));
-		container.addEventListener('mouseup', this.updateLastPosition.bind(this));
-		container.addEventListener('touchend', this.updateLastPosition.bind(this));
-		container.addEventListener('touchcancel', this.updateLastPosition.bind(this));
+		this.container.addEventListener('mousedown', this.updateFirstPosition.bind(this, 'mouse'));
+		this.container.addEventListener('touchstart', this.updateFirstPosition.bind(this, 'touchScreen'), {passive: false});
+		this.container.addEventListener('mousemove', this.updateCurrentPosition.bind(this));
+		this.container.addEventListener('touchmove', this.updateCurrentPosition.bind(this));
+		this.container.addEventListener('mouseup', this.updateLastPosition.bind(this));
+		this.container.addEventListener('touchend', this.updateLastPosition.bind(this));
+		this.container.addEventListener('touchcancel', this.updateLastPosition.bind(this));
 	};
 
 	JSPATTERN.Pointer.prototype.updateFirstPosition = function(device, e)
@@ -55,38 +66,6 @@ var JSPATTERN = JSPATTERN || {};
 		this.updateUsedKeys(e.type, false);
 		this.posLast = this.isMoving === true ? this.posCurrent : this.posFirst;
 		this.isMoving = false;
-	};
-
-	JSPATTERN.Pointer.prototype.updateUsedKeys = function(e, device, isActive)
-	{
-		var keyCode = null;
-
-		if (device == 'mouse')
-		{
-			var buttons = ['leftBtn', 'middleBtn', 'rightBtn'];
-			keyCode = buttons[e.button];
-		}
-		else
-		{
-			keyCode = 'touchStart';
-		}
-
-		if (keyCode)
-		{
-			// key is pressed and it is not already registered
-			var index = this.usedKeys.indexOf(keyCode);
-			if (isActive)
-			{
-				if (index == -1)
-				{
-					this.usedKeys.push(keyCode);
-				}
-			}
-			else
-			{
-				this.usedKeys.splice(index, 1);
-			}
-		}
 	};
 
 	JSPATTERN.Pointer.prototype.getTranslation = function()

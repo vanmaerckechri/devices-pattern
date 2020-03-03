@@ -4,7 +4,7 @@ var JSPATTERN = JSPATTERN || {};
 {
 	"use strict";
 
-	JSPATTERN.Ui = function()
+	JSPATTERN.GameUi = function()
 	{
 		this.viewMouseX = document.getElementById('mouseX');
 		this.viewMouseY = document.getElementById('mouseY');
@@ -14,7 +14,7 @@ var JSPATTERN = JSPATTERN || {};
 		this.deviceDropPosition = document.getElementById('deviceDropPosition');
 	};
 
-	JSPATTERN.Ui.prototype = 
+	JSPATTERN.GameUi.prototype = 
 	{	
 		displayKeys: function(keys)
 		{

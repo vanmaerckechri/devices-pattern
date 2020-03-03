@@ -7,7 +7,7 @@ var JSPATTERN = JSPATTERN || {};
 	JSPATTERN.Device = function(keys)
 	{
 		this.keys = keys;
-		this.infos = {usedKeys: []};
+		this.usedKeys = [];
 		this.initEvents();
 	};
 
@@ -17,47 +17,40 @@ var JSPATTERN = JSPATTERN || {};
 
 		getInfos: function()
 		{
-			return this.infos;
+			return {usedKeys: this.usedKeys};
 		},
 
-		updateUsedKeys: function(event, isActive)
+		updateUsedKeys: function(e, device, isActive)
 		{
-			// toggle mouse/touchScreen/keyboard
-
 			var keyCode = null;
 
-			if (event.pointerType)
+			if (device == 'mouse')
 			{
-				if (event.pointerType == 'mouse')
-				{
-					keyCode = this.keys[event.button];
-				}
-				else
-				{
-					keyCode = this.keys[0];
-				}
+				keyCode = this.keys[e.button];
+			}
+			else if (device == 'keyboard')
+			{
+				keyCode = this.keys[e.keyCode];
 			}
 			else
 			{
-				keyCode = this.keys[event.keyCode];
+				keyCode = 'touchStart';
 			}
 
-			// does the code exist in keys ?
 			if (keyCode)
 			{
-				event.preventDefault();
-				var index = this.infos.usedKeys.indexOf(keyCode);
 				// key is pressed and it is not already registered
+				var index = this.usedKeys.indexOf(keyCode);
 				if (isActive)
 				{
 					if (index == -1)
 					{
-						this.infos.usedKeys.push(keyCode);
+						this.usedKeys.push(keyCode);
 					}
 				}
 				else
 				{
-					this.infos.usedKeys.splice(index, 1);
+					this.usedKeys.splice(index, 1);
 				}
 			}
 		}

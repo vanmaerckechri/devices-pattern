@@ -4,16 +4,15 @@ var JSPATTERN = JSPATTERN || {};
 {
 	"use strict";
 
-	JSPATTERN.Menu = function()
-	{		
-		JSPATTERN.State.call(this);
-	};
+	JSPATTERN.Menu = function(){};
 
-	JSPATTERN.Menu.prototype = Object.create(JSPATTERN.State.prototype);
-
-	JSPATTERN.Menu.prototype.mainLoop = function(ui, keys, mouse)
+	JSPATTERN.Menu.prototype.mainLoop = function(ui, keyboard, pointer)
 	{
-		this.listenKeyboard(ui, keys);
-		this.listenMouse(ui, mouse);
+		this.listenKeyboard(ui, keyboard);
+		this.listenPointer(ui, pointer);
 	}
+
+	JSPATTERN.Menu.prototype.listenKeyboard = function(ui, keyboard){};
+	
+	JSPATTERN.Menu.prototype.listenPointer = function(ui, pointer){};
 }());

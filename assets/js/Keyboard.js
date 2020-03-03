@@ -24,11 +24,11 @@ var JSPATTERN = JSPATTERN || {};
 		var self = this;
 		window.addEventListener('keydown', function(e)
 		{
-        	self.updateUsedKeys(e, true);
+        	self.updateUsedKeys(e, 'keyboard', true);
     	});
     	window.addEventListener('keyup', function(e)
 		{
-        	self.updateUsedKeys(e, false);
+        	self.updateUsedKeys(e, 'keyboard', false);
     	});
 	};
 }());
