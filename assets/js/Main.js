@@ -11,7 +11,6 @@ var JSPATTERN = JSPATTERN || {};
 		this.ui = new JSPATTERN.Ui();
 		this.keyboard = new JSPATTERN.Keyboard();
 		this.pointer = new JSPATTERN.Pointer();
-		this.dragDrop = new JSPATTERN.DragDrop();
 		this.menu = new JSPATTERN.Menu();
 		this.game = new JSPATTERN.Game();
 		this.run();

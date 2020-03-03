@@ -49,7 +49,6 @@ var JSPATTERN = JSPATTERN || {};
 
 	JSPATTERN.Pointer.prototype.updateLastPosition = function(e)
 	{
-		console.log(e.type)
 		this.posLast = this.posCurrent;
 		this.updateUsedKeys(e.type, false);
 	};
